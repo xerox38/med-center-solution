@@ -9,14 +9,14 @@ import java.util.TreeSet;
 
 class Doctor {
 	
-	private String id;
-	private String name;
-	private String surname;
-	private Map<String,Set<String>> slots = new HashMap<>();
+	private final String id;
+	private final String name;
+	private final String surname;
+	private final Map<String,Set<String>> slots = new HashMap<>();
 	private int totalSlots;
 	private int totalAppointments;
 
-	public Doctor(String id, String name, String surname, String specialty) {
+	public Doctor(String id, String name, String surname) {
 		this.id = id;
 		this.name= name;
 		this.surname = surname;
@@ -30,7 +30,7 @@ class Doctor {
 		return name;
 	}
 
-	public String getSurame() {
+	public String getSurname() {
 		return surname;
 	}
 

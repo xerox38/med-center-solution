@@ -1,13 +1,13 @@
 package it.polito.med;
 
 class Appointment implements Comparable<Appointment>{
-	String id;
-	String ssn;
-	String name;
-	String surname;
-	String date;
-	String time;
-	Doctor doc;
+	final String id;
+	final String ssn;
+	final String name;
+	final String surname;
+	final String date;
+	final String time;
+	final Doctor doc;
 	private boolean accepted;
 
 	public Appointment(String id,String ssn, String name, String surname, String date, String slot, Doctor doc) {

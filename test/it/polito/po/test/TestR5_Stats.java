@@ -56,7 +56,7 @@ public class TestR5_Stats {
 	}
 
 	@Test
-	public void testNoShow() throws MedException {
+	public void testNoShow() {
 
 		double noShow = mgr.showRate(DOC_ID, DATE);
 		assertEquals(1.0, noShow, 0.001);
@@ -64,12 +64,12 @@ public class TestR5_Stats {
 	}
 
 	@Test
-	public void testCompleteness() throws MedException {
+	public void testCompleteness() {
 
 		Map<String,Double> completeness = mgr.scheduleCompleteness();
 		assertNotNull("Missing completeness data", completeness);
 		assertEquals("Wrong number of doctors", 5, completeness.size());
-		assertEquals("Wrong completenss for doctor " + DOC_ID, 3.0/8.0, completeness.get(DOC_ID), 0.001);
+		assertEquals("Wrong completeness for doctor " + DOC_ID, 3.0/8.0, completeness.get(DOC_ID), 0.001);
 
 	}
 

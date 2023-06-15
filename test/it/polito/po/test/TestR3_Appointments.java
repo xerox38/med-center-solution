@@ -43,7 +43,7 @@ public class TestR3_Appointments {
 	}
 
 	@Test
-	public void testAppointmentBadCode() throws MedException {
+	public void testAppointmentBadCode() {
 		assertThrows("Invalid doc id for appointment not detected",
 				MedException.class,
 				()->mgr.setAppointment("GVNBNC80B14F219K","Giovanni","Bianchi", "INV4L10", DATE,"10:30-11:00"));
@@ -51,7 +51,7 @@ public class TestR3_Appointments {
 	}
 
 	@Test
-	public void testAppointmentBadDate() throws MedException {
+	public void testAppointmentBadDate() {
 		assertThrows("Wrong date for appointment not detected",
 				MedException.class,
 				()->mgr.setAppointment("GVNBNC80B14F219K","Giovanni","Bianchi", DOC_ID, "2023-06-01","10:30-11:00"));
@@ -59,7 +59,7 @@ public class TestR3_Appointments {
 	}
 	
 	@Test
-	public void testAppointmentBadSlot() throws MedException {
+	public void testAppointmentBadSlot() {
 		assertThrows("Wrong slot for appointment not detected",
 				MedException.class,
 				()->mgr.setAppointment("GVNBNC80B14F219K","Giovanni","Bianchi", DOC_ID, DATE,"10:40-11:00"));
@@ -67,7 +67,7 @@ public class TestR3_Appointments {
 	}
 
 	@Test
-	public void testAppointmentBadSlot2() throws MedException {
+	public void testAppointmentBadSlot2() {
 		assertThrows("Wrong slot for appointment not detected",
 				MedException.class,
 				()->mgr.setAppointment("GVNBNC80B14F219K","Giovanni","Bianchi", DOC_ID, DATE,"10:30-11:30"));

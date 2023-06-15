@@ -36,20 +36,20 @@ public class TestExample {
 		mgr.addDoctor("OK358","Jack","Bones","Orthopedy");
 		
 		assertThrows(MedException.class,
-					 ()->{mgr.addDoctor("FD845","Mary","White","Pediatry");});
+					 ()-> mgr.addDoctor("FD845","Mary","White","Pediatry"));
 
 		Collection<String> cardiologists = mgr.getSpecialists("Cardiology");
 		assertNotNull(cardiologists);
 		assertEquals(2,cardiologists.size());
 		
 		assertEquals("John",mgr.getDocName(code));
-		assertEquals("Smith",mgr.getDocSurame(code));
+		assertEquals("Smith",mgr.getDocSurname(code));
 		
 		// R2 : schedule
 		
 		// define slots on 2023-06-28 from 10:00 to 12:00 every 20 minutes
-		int nslots = mgr.addDailySchedule(code, "2023-06-28", "10:00", "12:00", 20);
-		assertEquals(6, nslots);
+		int numSlots = mgr.addDailySchedule(code, "2023-06-28", "10:00", "12:00", 20);
+		assertEquals(6, numSlots);
 		mgr.addDailySchedule(code, "2023-07-04", "15:00", "18:00", 20);
 		mgr.addDailySchedule("OK358", "2023-07-03", "09:00", "11:00", 30);
 		
@@ -80,8 +80,8 @@ public class TestExample {
 		
 		// R4 : welcome patients
 		
-		int napps = mgr.setCurrentDate("2023-06-28");
-		assertEquals(2, napps);
+		int numApps = mgr.setCurrentDate("2023-06-28");
+		assertEquals(2, numApps);
 		
 		mgr.accept(ssn);
 		

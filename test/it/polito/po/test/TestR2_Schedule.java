@@ -27,37 +27,37 @@ public class TestR2_Schedule {
 	}
 
 	@Test
-	public void testSlots() throws MedException {
-		int nslots_20 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 20);
+	public void testSlots() {
+		int numSlots_20 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 20);
 
-		int nslots_30 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 30);
+		int numSlots_30 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 30);
 
-		int nslots_10 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 10);
+		int numSlots_10 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 10);
 		
-		assertEquals("Wrong number of slots", 6, nslots_20);
+		assertEquals("Wrong number of slots", 6, numSlots_20);
 
-		assertEquals("Wrong number of slots", 4, nslots_30);
+		assertEquals("Wrong number of slots", 4, numSlots_30);
 
-		assertEquals("Wrong number of slots", 12, nslots_10);
+		assertEquals("Wrong number of slots", 12, numSlots_10);
 
 	}
 
 	@Test
-	public void testSlots2() throws MedException {
-		int nslots = mgr.addDailySchedule(DOC_ID, "2023-06-28", "08:30", "10:00", 30);
+	public void testSlots2() {
+		int numSlots = mgr.addDailySchedule(DOC_ID, "2023-06-28", "08:30", "10:00", 30);
 
-		assertEquals("Wrong number of slots", 3, nslots);
+		assertEquals("Wrong number of slots", 3, numSlots);
 	}
 
 	@Test
-	public void testDailySlots() throws MedException {
+	public void testDailySlots() {
 		String date = "2023-06-28";
 		mgr.addDailySchedule(DOC_ID, date, "10:30", "13:00", 30);
 		
 		Map<String,List<String>> slots = mgr.findSlots(date, SPECIALITY);
 
 		assertNotNull("Missing daily slots", slots);
-		assertEquals("Wrond number of "+ SPECIALITY + " specialists availalble on " + date, 
+		assertEquals("Wrong number of "+ SPECIALITY + " specialists available on " + date,
 					 1,slots.size());
 		
 		assertTrue("Missing doctor " + DOC_ID + " in available slots", slots.containsKey(DOC_ID));
@@ -76,7 +76,7 @@ public class TestR2_Schedule {
 		Map<String,List<String>> slots = mgr.findSlots(date, SPECIALITY);
 
 		assertNotNull("Missing daily slots", slots);
-		assertEquals("Wrond number of "+ SPECIALITY + " specialists availalble on " + date, 
+		assertEquals("Wrong number of "+ SPECIALITY + " specialists available on " + date,
 					 2, slots.size());
 		
 		assertTrue("Missing doctor " + DOC_ID + " in available slots", slots.containsKey(DOC_ID));

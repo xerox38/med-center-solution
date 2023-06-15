@@ -14,12 +14,12 @@ public class MedManager {
 
 	public static boolean debug = false;
 	
-	private Map<String,List<String>> specs = new HashMap<>();
-	private Map<String,Doctor> docs = new HashMap<>();
+	private final Map<String,List<String>> specs = new HashMap<>();
+	private final Map<String,Doctor> docs = new HashMap<>();
 	private int appCounter;
-	private Map<String, Appointment> appointments = new HashMap<>();
+	private final Map<String, Appointment> appointments = new HashMap<>();
 	private String currentDate;
-	private Map<String, SortedSet<Appointment>> accepted = new HashMap<>();
+	private final Map<String, SortedSet<Appointment>> accepted = new HashMap<>();
 
 	/**
 	 * add a set of medical specialities to the list of specialities
@@ -55,16 +55,16 @@ public class MedManager {
 	 * @param speciality speciality of the doctor
 	 * @throws MedException in case of duplicate id or non-existing speciality
 	 */
-	public void addDoctor(String id, String name, String surname, String specialty) throws MedException {
+	public void addDoctor(String id, String name, String surname, String speciality) throws MedException {
 		if( docs.containsKey(id) ) {
 			throw new MedException("Duplicate doctor id: " + id);
 		}
-		if( !specs.containsKey(specialty) ) {
-			throw new MedException("Invalid speciality: " + specialty);
+		if( !specs.containsKey(speciality) ) {
+			throw new MedException("Invalid speciality: " + speciality);
 		}
-		Doctor d = new Doctor(id,name,surname,specialty);
+		Doctor d = new Doctor(id,name,surname);
 		docs.put(id,d);
-		specs.get(specialty).add(id);
+		specs.get(speciality).add(id);
 	}
 
 	/**
@@ -93,8 +93,8 @@ public class MedManager {
 	 * @param code code id of the doctor 
 	 * @return the surname
 	 */
-	public String getDocSurame(String code) {
-		return docs.get(code).getSurame();
+	public String getDocSurname(String code) {
+		return docs.get(code).getSurname();
 	}
 
 	/**
@@ -136,15 +136,14 @@ public class MedManager {
 	}
 
 	/**
-	 * retrieves the available slots available on a given date for a a speciality.
-	 * 
-	 * the returned map contains an entry for each doctor that has slots scheduled on the date.
-	 * the map contains a list of slots described as strings with the format "hh:mm-hh:mm",
+	 * retrieves the available slots available on a given date for a speciality.
+	 * The returned map contains an entry for each doctor that has slots scheduled on the date.
+	 * The map contains a list of slots described as strings with the format "hh:mm-hh:mm",
 	 * e.g. "14:00-14:30" describes a slot starting at 14:00 and lasting 30 minutes.
 	 * 
 	 * @param date			date to look for
 	 * @param speciality	required speciality
-	 * @return
+	 * @return a map doc-id -> list of slots in the schedule
 	 */
 	public Map<String, List<String>> findSlots(String date, String speciality) {
 		
@@ -227,7 +226,6 @@ public class MedManager {
 
 	/**
 	 * retrieves the list of a doctor appointments for a given day.
-	 * 
 	 * Appointments are reported as string with the format
 	 * "hh:mm=SSN"
 	 * 
@@ -248,7 +246,7 @@ public class MedManager {
 	 * Define the current date for the medical centre
 	 * The date will be used to accept patients arriving at the centre.
 	 * 
-	 * @param date
+	 * @param date	current date
 	 * @return the number of total appointments for the day
 	 */
 	public int setCurrentDate(String date) {
@@ -271,27 +269,25 @@ public class MedManager {
 	}
 
 	/**
-	 * returns the next appointment of a patient that has been accepted
-	 * 
+	 * returns the next appointment of a patient that has been accepted.
 	 * Returns the id of the earliest appointment whose patient has been
 	 * accepted and the appointment not completed yet.
-	 * 
 	 * Returns null if no such appointment is available.
 	 * 
 	 * @param code	code id of the doctor
-	 * @param time	reference time
 	 * @return appointment id
 	 */
 	public String nextAppointment(String code) {
 		SortedSet<Appointment> apps = accepted.get(code);
-		if(apps==null || apps.size()==0) return null;
+		if(apps==null || apps.size()==0){
+			return null;
+		}
 		return apps.first().getId();
 	}
 
 	/**
-	 * mark an appointment as complete
-	 * 
-	 * the appointment must be with the doctor with the given code
+	 * mark an appointment as complete.
+	 * The appointment must be with the doctor with the given code
 	 * the patient must have been accepted
 	 * 
 	 * @param code		doctor code id
@@ -313,7 +309,7 @@ public class MedManager {
 		}
 		
 		SortedSet<Appointment> apps = accepted.get(code);
-		if(! apps.contains(app) ) {
+		if( apps==null || ! apps.contains(app) ) {
 			throw new MedException("Patient not accepted for app id: " + appId);
 		}
 		
@@ -347,11 +343,9 @@ public class MedManager {
 
 	/**
 	 * computes the schedule completeness for all doctors of the med centre.
-	 * 
 	 * The completeness for a doctor is the ratio of the number of appointments
-	 * over the number of slots in the schedule
-	 * 
-	 * the result is a map that associates to each doctor id the relative completeness
+	 * over the number of slots in the schedule.
+	 * The result is a map that associates to each doctor id the relative completeness
 	 * 
 	 * @return the map id : completeness
 	 */

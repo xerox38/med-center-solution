@@ -22,7 +22,7 @@ public class TestR1_Doctors {
 	private final static String[] sp = {"Ecography","Orthopedy","Cardiology"};
 	
 	@Test
-	public void testSpecialities() throws MedException {
+	public void testSpecialities() {
 		mgr.addSpecialities(sp);
 		
 		Collection<String> specs = mgr.getSpecialities();
@@ -36,7 +36,7 @@ public class TestR1_Doctors {
 	}
 
 	@Test
-	public void testSpecialitiesNoDup() throws MedException {
+	public void testSpecialitiesNoDup() {
 		mgr.addSpecialities(sp);
 		
 		mgr.addSpecialities("Optician", sp[0]);
@@ -59,7 +59,7 @@ public class TestR1_Doctors {
 		mgr.addDoctor(code,"John","Smith","Generics");
 
 		assertEquals("John",mgr.getDocName(code));
-		assertEquals("Smith",mgr.getDocSurame(code));
+		assertEquals("Smith",mgr.getDocSurname(code));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class TestR1_Doctors {
 
 		assertThrows("Duplicate doctor id not detected",
 				MedException.class,
-				()->{mgr.addDoctor(code,"Mary","White","Generics");});
+				()-> mgr.addDoctor(code,"Mary","White","Generics"));
 	}
 
 	@Test
@@ -81,9 +81,9 @@ public class TestR1_Doctors {
 		String code = "XD345";
 		mgr.addDoctor(code,"John","Smith","Generics");
 
-		assertThrows("Non existend doctor specility not detected",
+		assertThrows("Non existent doctor speciality not detected",
 				MedException.class,
-				()->{mgr.addDoctor("FD845","Mary","White","Pediatry");});
+				()-> mgr.addDoctor("FD845","Mary","White","Pediatry"));
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class TestR1_Doctors {
 		Collection<String> cardiologists = mgr.getSpecialists("Cardiology");
 		assertNotNull("Missing specialists", cardiologists);
 		assertEquals("Wrong number of cardiologists", 2,cardiologists.size());
-		assertTrue("Missing cardiologis: " + code, cardiologists.contains(code));
+		assertTrue("Missing cardiologist: " + code, cardiologists.contains(code));
 	}
 
 }

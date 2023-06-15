@@ -49,7 +49,7 @@ public class TestR4_PatientMgmt {
 	}
 
 	@Test
-	public void testCurrentDate() throws MedException {
+	public void testCurrentDate() {
 
 		assertEquals(2, mgr.setCurrentDate(DATE));
 		
@@ -58,7 +58,7 @@ public class TestR4_PatientMgmt {
 	}
 
 	@Test
-	public void testNextAppointments() throws MedException {
+	public void testNextAppointments() {
 
 		mgr.setCurrentDate(DATE);
 		
@@ -71,7 +71,7 @@ public class TestR4_PatientMgmt {
 	}
 
 	@Test
-	public void testNextAppointments2() throws MedException {
+	public void testNextAppointments2() {
 
 		mgr.setCurrentDate(DATE);
 		
@@ -106,5 +106,40 @@ public class TestR4_PatientMgmt {
 		assertNull("There should be no further appointments", mgr.nextAppointment(DOC_ID));
 	}
 
+	@Test
+	public void testCompleteBadDoc() {
+
+		mgr.setCurrentDate(DATE);
+
+		mgr.accept(SSN2);
+		String nextApp = mgr.nextAppointment(DOC_ID);
+
+		assertThrows("Complete with wrong doctor id not detected",
+		MedException.class,
+				()->mgr.completeAppointment("N0N3X", nextApp));
+	}
+
+	@Test
+	public void testCompleteBadApp() {
+
+		mgr.setCurrentDate(DATE);
+
+		mgr.accept(SSN2);
+
+		assertThrows("Complete with invalid app id not detected",
+				MedException.class,
+				()->mgr.completeAppointment(DOC_ID, "N04PP"));
+	}
+
+
+	@Test
+	public void testCompleteNotAccepted() {
+
+		mgr.setCurrentDate(DATE);
+
+		assertThrows("Complete with patient not yet accepted not detected",
+				MedException.class,
+				()->mgr.completeAppointment(DOC_ID, a1));
+	}
 
 }
