@@ -12,7 +12,7 @@ The [JDK documentation](https://oop.polito.it/api/) is located on the local serv
 R1: Customers and Doctors
 -------------------------
 
-The medical centre manages the work of several doctors, each having a given mdeical speciality.
+The medical centre manages the work of several doctors, each having a given medical speciality.
 
 The `addSpecialities()` method enables the medical centre to add a set of medical specialities to the list of specialities offered. It can be invoked multiple times, and any duplicates are ignored.
 
