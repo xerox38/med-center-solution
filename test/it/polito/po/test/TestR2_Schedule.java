@@ -30,9 +30,9 @@ public class TestR2_Schedule {
 	public void testSlots() {
 		int numSlots_20 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 20);
 
-		int numSlots_30 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 30);
+		int numSlots_30 = mgr.addDailySchedule(DOC_ID, "2023-06-29", "10:00", "12:00", 30);
 
-		int numSlots_10 = mgr.addDailySchedule(DOC_ID, "2023-06-28", "10:00", "12:00", 10);
+		int numSlots_10 = mgr.addDailySchedule(DOC_ID, "2023-06-30", "10:00", "12:00", 10);
 		
 		assertEquals("Wrong number of slots", 6, numSlots_20);
 
